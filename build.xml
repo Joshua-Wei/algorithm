@@ -1,0 +1,16 @@
+<project name="algorithm" default="build" basedir=".">
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+
+  <target name="init">
+    <mkdir dir="${bin}"/>
+  </target>
+
+  <target name="build" depends="init" description="build src">
+    <javac srcdir="${src}" destdir="${bin}"/>
+  </target>
+
+  <target name="clean" description="clean bin">
+    <delete dir="${bin}"/>
+  </target>
+</project>
