@@ -14,12 +14,10 @@ package misc;
  * 3,2,1 -> 1,2,3
  * 1,1,5 -> 1,5,1
  * 
- * @author Joshua Wei
+ * Algorithm from http://fisherlei.blogspot.ca/2012/12/leetcode-next-permutation.html
  */
 public class NextPermutation {
     public void nextPermutation(int[] num) {
-        // http://fisherlei.blogspot.ca/2012/12/leetcode-next-permutation.html
-        
         if (num == null || num.length <= 1) return;
         
         // 1. From right to left, find the first digit (PartitionNumer)which violate the increase trend
