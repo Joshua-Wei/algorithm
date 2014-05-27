@@ -13,7 +13,7 @@ package array;
  * 
  * @author Joshua Wei
  */
-public class RemoveDuplicatesFromSortedArray {
+public class RemoveDupsFromSortedArray {
     public int removeDuplicates(int[] A) {
         if (A == null || A.length == 0) return 0;
         int read = 0;

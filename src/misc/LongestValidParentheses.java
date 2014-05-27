@@ -33,10 +33,8 @@ public class LongestValidParentheses {
                     } else {
                         longest = Math.max(longest, i - stack.peek());
                     }
-                    
                 }
             }
-            
         }
         
         return longest;
