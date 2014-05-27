@@ -1,4 +1,4 @@
-package misc;
+package matrix;
 
 /**
  * Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.

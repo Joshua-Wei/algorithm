@@ -1,4 +1,4 @@
-package array;
+package matrix;
 
 /**
  * Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the

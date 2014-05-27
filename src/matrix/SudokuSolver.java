@@ -1,4 +1,4 @@
-package misc;
+package matrix;
 
 import java.util.*;
 

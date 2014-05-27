@@ -1,4 +1,4 @@
-package misc;
+package string;
 
 import java.util.*;
 

@@ -49,7 +49,8 @@ public class InorderTraversal {
         return list;
     }
     
-    private void inorderTraversal(TreeNode root, ArrayList<Integer> list) {
+    @SuppressWarnings("unused")
+	private void inorderTraversal(TreeNode root, ArrayList<Integer> list) {
         if (root == null) return;
         inorderTraversal(root.left, list);
         list.add(root.val);
