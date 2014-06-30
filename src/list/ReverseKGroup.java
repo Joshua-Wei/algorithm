@@ -20,37 +20,25 @@ package list;
  */
 public class ReverseKGroup {
     public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null || k <= 1) return head;
+    	if (k < 2) return head;
+        
+        ListNode tmp = head;
+        for (int i = 0; i < k; i++) {
+            if (tmp == null) return head;
+            tmp = tmp.next;
+        }
+        tmp = reverseKGroup(tmp, k);
         
         ListNode prev = null;
-        ListNode current = head;
-        
-        while (canReverse(current, k)) {
-            for (int i = 1; i < k; i++) {
-                ListNode tmp = current.next;
-                current.next = tmp.next;
-                if (prev == null) {
-                	tmp.next = head;
-                	head = tmp;
-                }
-                else {
-                	tmp.next = prev.next;
-                	prev.next = tmp;
-                }
-            }
-            prev = current;
-            current = current.next;
-        }
-        
-        
-        return head;
-    }
-    
-    private boolean canReverse(ListNode node, int k) {
+        ListNode curr = head;
+        ListNode next;
         for (int i = 0; i < k; i++) {
-            if (node == null) return false;
-            node = node.next;
+            next = curr.next;
+            curr.next = (prev == null) ? tmp : prev;
+            prev = curr;
+            curr = next;
         }
-        return true;
+        
+        return prev;
     }
 }

@@ -6,51 +6,39 @@ package list;
  * @author Joshua Wei
  */
 public class InsertionSortList {
-    public ListNode insertionSortList(ListNode head) {
-        if (head == null || head.next == null) return head;
-        
-        head = doFirst(head);
-
-        ListNode lastSorted = head;
-        while (lastSorted.next != null) {
-            ListNode prev = lastSorted;
-            ListNode min = lastSorted.next;
-            
-            ListNode tmp = lastSorted;
-            while (tmp.next != null) {
-                if (tmp.next.val < min.val) {
-                    prev = tmp;
-                    min = tmp.next;
-                }
-                tmp = tmp.next;
-            }
-            
-            
-            prev.next = min.next;
-            min.next = lastSorted.next;
-            lastSorted.next = min;
-            lastSorted = lastSorted.next;
-        }
-        return head;
+	public ListNode insertionSortList(ListNode head) {
+        if (head == null) return head;
+        return insertionSortList(head, head.next);
     }
     
-    public ListNode doFirst(ListNode head) {
+    private ListNode insertionSortList(ListNode head, ListNode node) {
+        if (node == null) return head;
+        
+        ListNode next = node.next;
         ListNode prev = null;
-        ListNode min = head;
+        ListNode curr = head;
+        ListNode insert = null;
         
-        ListNode tmp = head;
-        while (tmp.next != null) {
-            if (tmp.next.val < min.val) {
-                prev = tmp;
-                min = tmp.next;
+        while (curr != node) {
+            if (insert == null && node.val < curr.val) {
+                if (prev == null) insert = node;
+                else insert = prev;
             }
-            tmp = tmp.next;
+            prev = curr;
+            curr = curr.next;
         }
         
-        if (min != head) {
-            prev.next = min.next;
-            min.next = head;
+        if (insert != null) {
+            prev.next = next;
+            if (insert == node) {
+                node.next = head;
+                head = node;
+            } else {
+                node.next = insert.next;
+                insert.next = node;
+            }
         }
-        return min;
+        
+        return insertionSortList(head, next);
     }
 }

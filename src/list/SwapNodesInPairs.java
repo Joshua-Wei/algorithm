@@ -13,22 +13,10 @@ package list;
  */
 public class SwapNodesInPairs {
     public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
-        
-        ListNode second = head.next;
-        head.next = second.next;
-        second.next = head;
-        head = second;
-        
-        ListNode current = head.next;
-        while (current.next != null && current.next.next != null) {
-            ListNode tmp = current.next.next;
-            current.next.next = tmp.next;
-            tmp.next = current.next;
-            current.next = tmp;
-            current = current.next.next;
-        }
-        
-        return head;
+    	if (head == null || head.next == null) return head;
+        ListNode next = head.next;
+        head.next = swapPairs(next.next);
+        next.next = head;
+        return next;
     }
 }

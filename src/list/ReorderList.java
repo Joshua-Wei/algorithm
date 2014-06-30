@@ -34,14 +34,15 @@ public class ReorderList {
 	}
     
     private ListNode reverse(ListNode head) {
-        if (head == null || head.next == null) return head;
+    	if (head == null) return head;
         ListNode prev = null;
-        ListNode current = head;
-        while (current != null) {
-            ListNode tmp = prev;
-            prev = current;
-            current = current.next;
-            prev.next = tmp;
+        ListNode curr = head;
+        ListNode next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
         return prev;
     }

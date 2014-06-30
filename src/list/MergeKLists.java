@@ -8,37 +8,36 @@ import java.util.*;
  * @author Joshua Wei
  */
 public class MergeKLists {
-    public ListNode mergeKLists(ArrayList<ListNode> lists) {
-        if (lists == null) return null;
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if (lists == null || lists.isEmpty()) return null;
+        
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(lists.size(), new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode l1, ListNode l2) {
+                return l1.val - l2.val;
+            }
+        });
+        
+        for (ListNode list : lists) {
+            if (list != null) minHeap.add(list);
+        }
         
         ListNode head = null;
-        ListNode current = null;
-        while (!lists.isEmpty()) {
-            ListNode min = getMin(lists);
-            if (min == null) break;
-            
-            ListNode tmp = min.next;
-            min.next = null;
-            if (tmp != null) lists.add(tmp);
-            lists.remove(min);
+        ListNode tail = null;
+        while (!minHeap.isEmpty()) {
+            ListNode minList = minHeap.poll();
             
             if (head == null) {
-                head = min;
-                current = head;
+                head = minList;
+                tail = head;
             } else {
-                current.next = min;
-                current = current.next;
+                tail.next = minList;
+                tail = minList;
             }
+            
+            if (minList.next != null) minHeap.offer(minList.next);
+            tail.next = null;
         }
         return head;
-    }
-    
-    private ListNode getMin(ArrayList<ListNode> lists) {
-        ListNode min = null;
-        for (ListNode n : lists) {
-            if (n == null) continue;
-            if (min == null || n.val < min.val) min = n;
-        }
-        return min;
     }
 }
