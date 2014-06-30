@@ -8,27 +8,16 @@ package tree;
  * @author Joshua Wei
  */
 public class MinimumDepth {
-    private int min = Integer.MAX_VALUE;
-    
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
-        min = Integer.MAX_VALUE;
-        minDepth(root, 1);
-        return min;
-    }
-    
-    private void minDepth(TreeNode node, int level) {
-        if (node.left == null && node.right == null) {
-            if (level < min) {
-                min = level;
-            }
+        if (root.left == null && root.right == null) {
+            return 1;
+        } else if (root.left == null) {
+            return minDepth(root.right) + 1;
+        } else if (root.right == null) {
+            return minDepth(root.left) + 1;
         } else {
-            if (node.left != null) {
-                minDepth(node.left, level + 1);
-            }
-            if (node.right != null) {
-                minDepth(node.right, level + 1);
-            }
+            return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
         }
     }
 }

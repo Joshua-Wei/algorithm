@@ -23,31 +23,28 @@ import java.util.*;
  * @author Joshua Wei
  */
 public class PathSum2 {
-    public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
-        return pathSum(root, sum, new ArrayList<Integer>());
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> result = new ArrayList<>();
+        pathSum(root, sum, new ArrayList<Integer>(), result);
+        return result;
     }
     
-    private ArrayList<ArrayList<Integer>> pathSum(TreeNode node, int sum, ArrayList<Integer> pathToMe) {
-        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-        if (node != null) {
-            pathToMe = copy(pathToMe);
-            pathToMe.add(node.val);
-            
-            if (node.left == null && node.right == null && node.val == sum) {
-                list.add(pathToMe);
-            } else {
-                list.addAll(pathSum(node.left, sum - node.val, pathToMe));
-                list.addAll(pathSum(node.right, sum - node.val, pathToMe));
+    private void pathSum(TreeNode root, int sum, List<Integer> path, List<List<Integer>> result) {
+        if (root == null) return;
+        
+        path.add(root.val);
+        
+        if (root.left == null && root.right == null) {
+            if (root.val == sum) {
+                List<Integer> validPath = new ArrayList<>(path.size());
+                validPath.addAll(path);
+                result.add(validPath);
             }
+        } else {
+            pathSum(root.left, sum - root.val, path, result);
+            pathSum(root.right, sum - root.val, path, result);
         }
-        return list;
-    }
-    
-    private ArrayList<Integer> copy(ArrayList<Integer> list) {
-        ArrayList<Integer> copy = new ArrayList<Integer>();
-        for (int i : list) {
-            copy.add(i);
-        }
-        return copy;
+        
+        path.remove(path.size() - 1);
     }
 }

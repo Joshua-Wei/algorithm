@@ -1,7 +1,5 @@
 package tree;
 
-import java.util.*;
-
 /**
  * Given a binary tree, flatten it to a linked list in-place. 
  * 
@@ -34,24 +32,17 @@ import java.util.*;
  */
 public class FlattenToLinkedList {
     public void flatten(TreeNode root) {
-        ArrayList<TreeNode> list = new ArrayList<TreeNode>();
-        preorder(root, list);
+        if (root == null) return;
         
-        TreeNode prev = null;
-        TreeNode current = null;
-        for (int i = 0; i < list.size(); i++) {
-            prev = current;
-            current = list.get(i);
-            current.left = null;
-            current.right = null;
-            if (prev != null) prev.right = current;
-        }
-    }
-    
-    private void preorder(TreeNode n, ArrayList<TreeNode> list) {
-        if (n == null) return;
-        list.add(n);
-        preorder(n.left, list);
-        preorder(n.right, list);
+        TreeNode right = root.right;
+        root.right = null;
+        
+        flatten(root.left);
+        root.right = root.left;
+        root.left = null;
+        
+        while (root.right != null) root = root.right;
+        flatten(right);
+        root.right = right;
     }
 }

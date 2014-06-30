@@ -25,16 +25,16 @@ import java.util.*;
  */
 public class LevelOrderTraversal {
     public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
-        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<>();
         
         if (root == null) return ret;
         
-        LinkedList<TreeNode> currentLevel = new LinkedList<TreeNode>();
-        LinkedList<TreeNode> nextLevel = new LinkedList<TreeNode>();
+        Queue<TreeNode> currentLevel = new LinkedList<>();
+        Queue<TreeNode> nextLevel = new LinkedList<>();
         currentLevel.offer(root);
         
         while (true) {
-            ArrayList<Integer> level = new ArrayList<Integer>();
+            ArrayList<Integer> level = new ArrayList<>();
             while (!currentLevel.isEmpty()) {
                 TreeNode n = currentLevel.poll();
                 level.add(n.val);
@@ -45,7 +45,7 @@ public class LevelOrderTraversal {
             
             if (nextLevel.isEmpty()) break;
             
-            LinkedList<TreeNode> swap = currentLevel;
+            Queue<TreeNode> swap = currentLevel;
             currentLevel = nextLevel;
             nextLevel = swap;
         }
