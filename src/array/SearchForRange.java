@@ -17,15 +17,15 @@ public class SearchForRange {
     public int[] searchRange(int[] A, int target) {
         int[] result = new int[2];
         
-        int left = searchRange(A, 0, A.length - 1, target);
+        int left = binarySearch(A, 0, A.length - 1, target);
         int right = left;
         
         if (left > -1) {
             int tmp;
-            while ((tmp = searchRange(A, 0, left - 1, target)) != -1) {
+            while ((tmp = binarySearch(A, 0, left - 1, target)) != -1) {
                 left = tmp;
             }
-            while ((tmp = searchRange(A, right + 1, A.length - 1, target)) != -1) {
+            while ((tmp = binarySearch(A, right + 1, A.length - 1, target)) != -1) {
                 right = tmp;
             }
         }
@@ -36,15 +36,18 @@ public class SearchForRange {
         return result;
     }
     
-    private int searchRange(int[] A, int low, int high, int target) {
-        if (low > high) return -1;
-        int mid = (low + high) / 2;
-        if (target < A[mid]) {
-            return searchRange(A, low, mid - 1, target);
-        } else if (target > A[mid]) {
-            return searchRange(A, mid + 1, high, target);
-        } else {
-            return mid;
+    private int binarySearch(int[] A, int low, int high, int target) {
+    	int mid;
+        while (low <= high) {
+        	mid = (low + high) / 2;
+        	if (A[mid] < target) {
+        		low = mid + 1;
+        	} else if (A[mid] > target) {
+        		high = mid - 1;
+        	} else {
+        		return mid;
+        	}
         }
+        return -1;
     }
 }

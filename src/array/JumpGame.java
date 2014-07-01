@@ -1,7 +1,5 @@
 package array;
 
-import java.util.*;
-
 /**
  * Given an array of non-negative integers, you are initially positioned at the first index of the array.
  * 
@@ -17,28 +15,21 @@ import java.util.*;
  * @author Joshua Wei
  */
 public class JumpGame {
-    private HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
-    
     public boolean canJump(int[] A) {
         if (A == null || A.length == 0) return false;
-        return canJump(A, A.length - 1);
-    }
-    
-    private boolean canJump(int[] A, int end) {
-        if (end == 0) return true;
-        if (map.containsKey(end)) return map.get(end);
         
-        boolean canJump = false;
-        for (int i = 0; i < end; i++) {
-            if (A[i] >= end - i) {
-                if (canJump(A, i)) {
-                    canJump = true;
+        boolean[] dp = new boolean[A.length];
+        dp[0] = true;
+        
+        for (int i = 1; i < A.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && j + A[j] >= i) {
+                    dp[i] = true;
                     break;
                 }
             }
         }
         
-        map.put(end, canJump);
-        return canJump;
+        return dp[dp.length - 1];
     }
 }
