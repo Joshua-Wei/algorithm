@@ -17,20 +17,20 @@ public class FirstMissingPositive {
         
         int i = 0;
         while (i < A.length) {
-        	if (A[i] <= 0 || A[i] > A.length || A[i] == i + 1 || A[i] == A[A[i] - 1]) {
-        		i++;
-        	} else {
-        		int swap = A[i];
-        		int pos = A[i] - 1;
-        		A[i] = A[pos];
-        		A[pos] = swap;
-        	}
+            if (A[i] <= 0 || A[i] > A.length || A[i] == i + 1 || A[i] == A[A[i] - 1]) {
+                i++;
+            } else {
+       	        int swap = A[i];
+       	        int pos = A[i] - 1;
+       	        A[i] = A[pos];
+       	        A[pos] = swap;
+       	    }
         }
         
         int j = 0;
         while (j < A.length) {
-        	if (A[j] != j + 1) return j + 1;
-        	j++;
+            if (A[j] != j + 1) return j + 1;
+            j++;
         }
         return A.length + 1;
     }
